@@ -176,6 +176,7 @@ function bootstrapModule<T> (
   }
 
   if (!testModuleMetaData.imports.includes(CommonModule)) {
+    // imported here, but isn't registered in the actual component
     testModuleMetaData.imports.push(CommonModule)
   }
 
@@ -210,6 +211,7 @@ function initTestBed<T> (
 ): Type<T> {
   const componentFixture = createComponentFixture(component) as Type<T>
 
+  // imports configures by the bootstrap module don't seem to have an impact on the test bed
   getTestBed().configureTestingModule({
     ...bootstrapModule(componentFixture, config),
   })
